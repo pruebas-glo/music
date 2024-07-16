@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: music-namespace # Reemplaza con el nombre de tu namespace
+  namespace: music
 spec:
   replicas: {{ .Values.frontend.replicaCount }}
   strategy:
