@@ -1,0 +1,17 @@
+backend:
+  replicaCount: 2
+  image:
+    repository: music-backend
+    tag: "v1.0.0"   # Reemplaza con el tag correspondiente
+
+frontend:
+  replicaCount: 2
+  image:
+    repository: music-frontend
+    tag: "v1.0.0"   # Reemplaza con el tag correspondiente
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 0
+    maxSurge: 1

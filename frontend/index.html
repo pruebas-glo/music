@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <style>
+        .video-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .video {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to the Music Player</h1>
+
+    <div>
+        <input type="text" id="search-query" placeholder="Buscar en YouTube">
+        <button onclick="searchYouTube()">Buscar</button>
+    </div>
+
+    <div id="results" class="video-wrapper"></div>
+
+    <script>
+        async function searchYouTube() {
+            const query = document.getElementById('search-query').value;
+            const response = await fetch(`/youtube-search?q=${query}`);
+            const data = await response.json();
+            displayResults(data.items);
+        }
+
+        function displayResults(videos) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            videos.forEach(video => {
+                const videoElement = document.createElement('div');
+                videoElement.classList.add('video');
+                videoElement.innerHTML = `
+                    <h3>${video.snippet.title}</h3>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.id.videoId}" frameborder="0" allowfullscreen></iframe>
+                `;
+                resultsDiv.appendChild(videoElement);
+            });
+        }
+    </script>
+</body>
+
+</html>
