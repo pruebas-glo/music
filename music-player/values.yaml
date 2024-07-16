@@ -1,14 +1,18 @@
+# values.yaml
+
 backend:
   replicaCount: 2
   image:
-    repository: music-backend
-    tag: "v1.0.0"   # Reemplaza con el tag correspondiente
+    repository: jaimehena6/music-backend
+    tag: "v1.0.0"
+    pullPolicy: IfNotPresent
 
 frontend:
   replicaCount: 2
   image:
-    repository: music-frontend
-    tag: "v1.0.0"   # Reemplaza con el tag correspondiente
+    repository: jaimehena6/music-frontend
+    tag: "v1.0.0"
+    pullPolicy: IfNotPresent
 
 strategy:
   type: RollingUpdate

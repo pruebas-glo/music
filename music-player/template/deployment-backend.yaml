@@ -1,3 +1,5 @@
+# templates/backend-deployment.yaml
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,9 +20,12 @@ spec:
       labels:
         app: backend
     spec:
+      imagePullSecrets: 
+        - name: regcred  # Add this line if using private registry, otherwise remove it.
       containers:
       - name: backend
         image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+        imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
         ports:
         - containerPort: 8080
         env:

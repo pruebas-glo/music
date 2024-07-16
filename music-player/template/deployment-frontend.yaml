@@ -1,3 +1,5 @@
+# templates/frontend-deployment.yaml
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,8 +20,11 @@ spec:
       labels:
         app: frontend
     spec:
+      imagePullSecrets: 
+        - name: regcred  # Agregar esta línea si usas un registry privado.
       containers:
       - name: frontend
         image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+        imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
         ports:
         - containerPort: 80
