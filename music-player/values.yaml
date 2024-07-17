@@ -1,25 +1,3 @@
-# replicaCount: 1
-
-# backend:
-#   image:
-#     repository: jaimehenao8126/globant-frontend
-#     tag: 83652d703969fbbfe77e8e98bd56463b6af88d58
-
-# frontend:
-#   image:
-#     repository: jaimehenao8126/globant-frontend
-#     tag: 83652d703969fbbfe77e8e98bd56463b6af88d58
-
-# service:
-#   type: ClusterIP
-#   port: 80
-
-# strategy:
-#   type: RollingUpdate
-#   rollingUpdate:
-#     maxUnavailable: 1
-#     maxSurge: 1
-
 backend:
   replicaCount: 1
   image:
