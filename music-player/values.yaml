@@ -1,14 +1,14 @@
 backend:
   replicaCount: 1
   image:
-    repository: jaimehenao8126/globant-frontend
-    tag: 83652d703969fbbfe77e8e98bd56463b6af88d58
+    repository: jaimehenao8126/music-frontend
+    tag: 2166178b824826089d8b9bcac99387614c79f65b
 
 frontend:
   replicaCount: 2
   image:
-    repository: jaimehenao8126/globant-frontend
-    tag: 83652d703969fbbfe77e8e98bd56463b6af88d58
+    repository: jaimehenao8126/music-frontend
+    tag: 2166178b824826089d8b9bcac99387614c79f65b
 
 service:
   type: ClusterIP
