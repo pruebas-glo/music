@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -47,6 +47,118 @@
     <button class="player-btn" onclick="playYoutube('https://www.youtube.com/embed/BL-0wRL9aiU?start=30')">Play Video 2</button>
     <button class="player-btn" onclick="playMusic('/song1')">Play Music 1</button>
     <button class="player-btn" onclick="playMusic('/song2')">Play Music 2</button>
+    
+    <div class="player">
+        <iframe id="video-player" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: none;"></iframe>
+        <audio id="audio-player" controls style="display: none; width: 300px;">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        function playYoutube(url) {
+            document.getElementById('audio-player').style.display = 'none';
+            document.getElementById('audio-player').pause();
+
+            const videoPlayer = document.getElementById('video-player');
+            videoPlayer.src = url;
+            videoPlayer.style.display = 'block';
+        }
+
+        function playMusic(endpoint) {
+            document.getElementById('video-player').style.display = 'none';
+            document.getElementById('video-player').src = '';
+
+            const audioPlayer = document.getElementById('audio-player');
+            audioPlayer.src = `http://${window.location.hostname}:8080${endpoint}`;
+            audioPlayer.style.display = 'block';
+            audioPlayer.play();
+        }
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music and Video Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .player-btn {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .player-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .player {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .thumbnail {
+            width: 200px;
+            height: 150px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Music and Video Player</h1>
+    <div class="player-btns">
+        <div class="thumbnail" onclick="playYoutube('https://www.youtube.com/embed/BL-0wRL9aiU')">
+            <img src="video1-thumbnail.jpg" alt="Video 1">
+            <p>Play Video 1</p>
+        </div>
+        <div class="thumbnail" onclick="playYoutube('https://www.youtube.com/embed/BL-0wRL9aiU?start=30')">
+            <img src="video2-thumbnail.jpg" alt="Video 2">
+            <p>Play Video 2</p>
+        </div>
+        <div class="thumbnail" onclick="playMusic('/song1')">
+            <img src="music1-thumbnail.jpg" alt="Music 1">
+            <p>Play Music 1</p>
+        </div>
+        <div class="thumbnail" onclick="playMusic('/song2')">
+            <img src="music2-thumbnail.jpg" alt="Music 2">
+            <p>Play Music 2</p>
+        </div>
+    </div>
     
     <div class="player">
         <iframe id="video-player" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display: none;"></iframe>
