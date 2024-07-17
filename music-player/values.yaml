@@ -1,21 +1,43 @@
-# values.yaml
+# replicaCount: 1
+
+# backend:
+#   image:
+#     repository: jaimehenao8126/globant-frontend
+#     tag: 38c853d88154787ffb3b05fee460b6ee665fa559
+
+# frontend:
+#   image:
+#     repository: jaimehenao8126/globant-frontend
+#     tag: 38c853d88154787ffb3b05fee460b6ee665fa559
+
+# service:
+#   type: ClusterIP
+#   port: 80
+
+# strategy:
+#   type: RollingUpdate
+#   rollingUpdate:
+#     maxUnavailable: 1
+#     maxSurge: 1
 
 backend:
-  replicaCount: 2
+  replicaCount: 1
   image:
-    repository: jaimehena8126/music-backend
-    tag: "v1.0.0"
-    pullPolicy: IfNotPresent
+    repository: jaimehenao8126/globant-frontend
+    tag: 38c853d88154787ffb3b05fee460b6ee665fa559
 
 frontend:
   replicaCount: 2
   image:
-    repository: jaimehena8126/music-frontend
-    tag: "v1.0.0"
-    pullPolicy: IfNotPresent
+    repository: jaimehenao8126/globant-frontend
+    tag: 38c853d88154787ffb3b05fee460b6ee665fa559
+
+service:
+  type: ClusterIP
+  port: 80
 
 strategy:
   type: RollingUpdate
   rollingUpdate:
-    maxUnavailable: 0
+    maxUnavailable: 1
     maxSurge: 1
