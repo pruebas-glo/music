@@ -1,110 +1,9 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music and Video Player</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #000;
-            color: #fff;
-        }
-
-        h1 {
-            color: #fff;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .player-btn {
-            margin: 10px;
-            padding: 10px 20px;
-            border: none;
-            background-color: #007BFF;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .player-btn:hover {
-            background-color: #0056b3;
-        }
-
-        .player {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #video-player,
-        #audio-player {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <h1>Music and Video Player</h1>
-    <button class="player-btn" onclick="playVideo('VIDEO_ID')">Play Video</button>
-    <button class="player-btn" onclick="playMusic('MUSIC_ID')">Play Music</button>
-    
-    <div class="player">
-        <div id="player"></div>
-    </div>
-
-    <script src="https://www.youtube.com/iframe_api"></script>
-    <script>
-        let player;
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '315',
-                width: '560',
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            console.log('Player ready');
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.ENDED) {
-                console.log('Video/Music finished');
-            }
-        }
-
-        function playVideo(videoId) {
-            player.loadVideoById(videoId);
-            player.playVideo();
-        }
-
-        function playMusic(videoId) {
-            player.loadVideoById(videoId);
-            player.playVideo();
-        }
-    </script>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Winamp</title>
+    <title>Fat Style</title>
     <style>
         body {
             font-family: "Arial", sans-serif;
@@ -156,20 +55,28 @@
 
         .video-list {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: flex-start;
+            overflow-x: auto;
             margin-top: 20px;
         }
 
         .video-item {
-            margin-bottom: 10px;
+            margin-right: 10px;
+            width: 120px;
+            cursor: pointer;
+        }
+
+        .video-item img {
+            width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <h1>Winamp</h1>
+    <h1>Fat Style</h1>
     <div class="video-list">
-        <!-- Videos will be dynamically added here -->
+        <!-- Thumbnails will be dynamically added here -->
     </div>
 
     <div class="player">
@@ -219,10 +126,11 @@
                 items.forEach(function(item) {
                     const videoId = item.snippet.resourceId.videoId;
                     const videoTitle = item.snippet.title;
+                    const thumbnailUrl = item.snippet.thumbnails.medium.url;
 
-                    const videoItem = document.createElement('button');
-                    videoItem.className = 'player-btn video-item';
-                    videoItem.textContent = videoTitle;
+                    const videoItem = document.createElement('div');
+                    videoItem.className = 'video-item';
+                    videoItem.innerHTML = `<img src="${thumbnailUrl}" alt="${videoTitle}" title="${videoTitle}">`;
                     videoItem.onclick = function() {
                         playVideo(videoId);
                     };
@@ -246,7 +154,7 @@
             auth = isSignedIn;
 
             if (auth) {
-                loadVideosFromPlaylist('PLAYLIST_ID');
+                loadVideosFromPlaylist('PLr59D9LtQ4_1ecUEfyPZ7aIRpKtEZcoP3');
             }
         }
     </script>
