@@ -2,13 +2,13 @@ backend:
   replicaCount: 1
   image:
     repository: jaimehenao8126/music-frontend
-    tag: 4d8dbcb4aacd7fee613128e53ee29d1045573e56
+    tag: 3a8fb9f7edb23f55c78cc609e71eaf31c42dd856
 
 frontend:
   replicaCount: 2
   image:
     repository: jaimehenao8126/music-frontend
-    tag: 4d8dbcb4aacd7fee613128e53ee29d1045573e56
+    tag: 3a8fb9f7edb23f55c78cc609e71eaf31c42dd856
 
 service:
   type: ClusterIP
