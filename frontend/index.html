@@ -153,13 +153,25 @@
             padding: 10px;
             width: 300px;
         }
+
+        .video-list {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .video-item {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Winamp</h1>
-    <button class="player-btn" onclick="playVideo('VIDEO_ID')">Play Video</button>
-    <button class="player-btn" onclick="playMusic('MUSIC_ID')">Play Music</button>
-    
+    <div class="video-list">
+        <!-- Videos will be dynamically added here -->
+    </div>
+
     <div class="player">
         <div id="player"></div>
     </div>
@@ -167,6 +179,7 @@
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         let player;
+        let auth = false;
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
@@ -177,6 +190,8 @@
                     'onStateChange': onPlayerStateChange
                 }
             });
+
+            checkAuthStatus();
         }
 
         function onPlayerReady(event) {
@@ -189,14 +204,74 @@
             }
         }
 
+        function loadVideosFromPlaylist(playlistId) {
+            const requestOptions = {
+                playlistId: playlistId,
+                part: 'snippet',
+                maxResults: 10
+            };
+
+            const request = gapi.client.youtube.playlistItems.list(requestOptions);
+            request.execute(function(response) {
+                const items = response.items;
+                const videoList = document.querySelector('.video-list');
+
+                items.forEach(function(item) {
+                    const videoId = item.snippet.resourceId.videoId;
+                    const videoTitle = item.snippet.title;
+
+                    const videoItem = document.createElement('button');
+                    videoItem.className = 'player-btn video-item';
+                    videoItem.textContent = videoTitle;
+                    videoItem.onclick = function() {
+                        playVideo(videoId);
+                    };
+
+                    videoList.appendChild(videoItem);
+                });
+            });
+        }
+
         function playVideo(videoId) {
             player.loadVideoById(videoId);
             player.playVideo();
         }
 
-        function playMusic(videoId) {
-            player.loadVideoById(videoId);
-            player.playVideo();
+        function checkAuthStatus() {
+            gapi.auth2.getAuthInstance().isSignedIn.listen(updateAuthStatus);
+            updateAuthStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        }
+
+        function updateAuthStatus(isSignedIn) {
+            auth = isSignedIn;
+
+            if (auth) {
+                loadVideosFromPlaylist('PLAYLIST_ID');
+            }
+        }
+    </script>
+
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+    <script>
+        function handleClientLoad() {
+            gapi.load('client:auth2', initClient);
+        }
+
+        function initClient() {
+            gapi.client.init({
+                apiKey: 'YOUR_API_KEY',
+                clientId: 'YOUR_CLIENT_ID',
+                discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
+                scope: 'https://www.googleapis.com/auth/youtube.readonly'
+            }).then(function() {
+                gapi.auth2.getAuthInstance().signIn().then(function() {
+                    console.log('API Loaded and User Authenticated');
+                }, function(error) {
+                    console.error('Error authenticating user:', error);
+                });
+            }, function(error) {
+                console.error('Error initializing API:', error);
+            });
         }
     </script>
 </body>
