@@ -5,10 +5,7 @@ metadata:
 spec:
   replicas: {{ .Values.frontend.replicaCount }}
   strategy:
-    type: {{ .Values.strategy.type }}
-    rollingUpdate:
-      maxUnavailable: {{ .Values.strategy.rollingUpdate.maxUnavailable }}
-      maxSurge: {{ .Values.strategy.rollingUpdate.maxSurge }}
+    type: Recreate
   selector:
     matchLabels:
       app: frontend
